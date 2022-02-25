@@ -1,2 +1,2 @@
 # aks-pipeline
-Provision AKS cluster using Azure DevOps Pipeline
+Provision AKS cluster using Azure DevOps Pipelin
