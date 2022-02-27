@@ -19,7 +19,8 @@ stages:
   - stage: DestroyAksCluster
     displayName: Destroy Aks Cluster Stage
     jobs:
-      - deployment: Destroy Aks Cluster Job
+      - deployment: DestroyAksClusterJob
+        environment: $(DEV_ENVIRONMENT)
         strategy:
          runOnce:
            deploy:
