@@ -50,4 +50,5 @@ stages:
                   command: 'destroy'
                   workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
                   environmentServiceName: 'terraform-aks-azurerm-svc-con'
+                  commandOptions: '-var environment=$(DEV_ENVIRONMENT)'
                   allowTelemetryCollection: false
