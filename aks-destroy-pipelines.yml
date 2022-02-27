@@ -26,12 +26,6 @@ stages:
          runOnce:
            deploy:
               steps:
-              - task: PublishPipelineArtifact@1
-                displayName: Publish Terraform Manifests
-                inputs:
-                  targetPath: '$(System.DefaultWorkingDirectory)/terraform-manifests'
-                  artifact: 'terraform-out'
-                  publishLocation: 'pipeline'
               - task: TerraformInstaller@0
                 displayName: Install Terraform
                 inputs:
