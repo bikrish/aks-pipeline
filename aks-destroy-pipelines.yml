@@ -36,6 +36,7 @@ stages:
                 displayName: Terraform Init
                 inputs:
                   command: 'init'
+                  workingDirectory: $(System.DefaultWorkingDirectory)/terraform-manifests
                   backendType: 'azurerm'
                   backendServiceArm: 'terraform-aks-azurerm-svc-con'
                   backendAzureRmResourceGroupName: 'terraform-storage-rg'
