@@ -41,8 +41,8 @@ stages:
                   backendAzureRmResourceGroupName: 'terraform-storage-rg'
                   backendAzureRmStorageAccountName: 'biktfstatesstorage'
                   backendAzureRmContainerName: 'tfstatesfile'
-                  backendAzureRmKey: 'base.terraform.tfstate'
-                  allowTelemetryCollection: false
+                  backendAzureRmKey: 'base.terraform.tfstate'                  
+                  allowTelemetryCollection: false                  
               - task: TerraformCLI@0
                 displayName: Terraform Destroy
                 inputs:
