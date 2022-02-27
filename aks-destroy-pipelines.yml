@@ -26,6 +26,8 @@ stages:
          runOnce:
            deploy:
               steps:
+              - checkout: self
+                displayName: Checkout code
               - task: TerraformInstaller@0
                 displayName: Install Terraform
                 inputs:
@@ -42,6 +44,7 @@ stages:
                   backendAzureRmKey: 'base.terraform.tfstate'
                   allowTelemetryCollection: false
               - task: TerraformCLI@0
+                displayName: Terraform Destroy
                 inputs:
                   command: 'destroy'
                   workingDirectory: '$(Pipeline.Workspace)/terraform-out'
