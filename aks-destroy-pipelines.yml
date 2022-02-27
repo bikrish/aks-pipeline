@@ -47,6 +47,6 @@ stages:
                 displayName: Terraform Destroy
                 inputs:
                   command: 'destroy'
-                  workingDirectory: '$(Pipeline.Workspace)/terraform-out'
+                  workingDirectory: '$(System.DefaultWorkingDirectory)/terraform-manifests'
                   environmentServiceName: 'terraform-aks-azurerm-svc-con'
                   allowTelemetryCollection: false
