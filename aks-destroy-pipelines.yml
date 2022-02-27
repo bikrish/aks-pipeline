@@ -1,0 +1,53 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- none
+
+variables:
+- name: DEV_ENVIRONMENT
+  value: dev
+- name: QA_ENVIRONMENT
+  value: qa
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: DestroyAksCluster
+    displayName: Destroy Aks Cluster Stage
+    jobs:
+      - deployment: Destroy Aks Cluster Job
+        strategy:
+         runOnce:
+           deploy:
+              steps:
+              - task: PublishPipelineArtifact@1
+                displayName: Publish Terraform Manifests
+                inputs:
+                  targetPath: '$(System.DefaultWorkingDirectory)/terraform-manifests'
+                  artifact: 'terraform-out'
+                  publishLocation: 'pipeline'
+              - task: TerraformInstaller@0
+                displayName: Install Terraform
+                inputs:
+                  terraformVersion: '1.1.6'
+              - task: TerraformCLI@0
+                displayName: Terraform Init
+                inputs:
+                  command: 'init'
+                  backendType: 'azurerm'
+                  backendServiceArm: 'terraform-aks-azurerm-svc-con'
+                  backendAzureRmResourceGroupName: 'terraform-storage-rg'
+                  backendAzureRmStorageAccountName: 'biktfstatesstorage'
+                  backendAzureRmContainerName: 'tfstatesfile'
+                  backendAzureRmKey: 'base.terraform.tfstate'
+                  allowTelemetryCollection: false
+              - task: TerraformCLI@0
+                inputs:
+                  command: 'destroy'
+                  workingDirectory: '$(Pipeline.Workspace)/terraform-out'
+                  environmentServiceName: 'terraform-aks-azurerm-svc-con'
+                  allowTelemetryCollection: false
